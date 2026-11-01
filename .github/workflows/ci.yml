@@ -1,0 +1,44 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.11", "3.14"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv run ruff check src tests tools
+      - run: uv run ruff format --check src tests tools
+      - run: uv run pyright
+      - run: uv run pytest -v
+
+  linux:
+    runs-on: ubuntu-latest
+    container: debian:trixie
+    env:
+      TERM: xterm-256color
+    steps:
+      - run: apt-get update -qq && apt-get install -y -qq fastfetch chafa pipx git
+      - uses: actions/checkout@v7
+      - name: install with pipx, run, set up, undo
+        run: |
+          pipx install .
+          export PATH="$HOME/.local/bin:$PATH"
+          nekofetch doctor
+          nekofetch -p ascii -- --pipe
+          nekofetch -p chafa -- --pipe > /dev/null
+          SHELL=/bin/bash nekofetch setup --yes
+          grep -q "nekofetch setup" ~/.bashrc
+          nekofetch setup --undo
+          ! grep -q "nekofetch setup" ~/.bashrc

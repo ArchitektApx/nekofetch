@@ -1,0 +1,120 @@
+# What the cat says at the bottom of nekofetch.
+#
+# Each [when.<condition>] table lists lines for one condition. On every run the
+# cat collects the lines of all conditions that are true right now and picks one
+# at random. Tables with `priority = true` win over everything else, and so do
+# [dates]. Delete or empty a table to silence it.
+#
+# Conditions: battery_critical battery_low disk_full long_uptime git_dirty
+#   first_shell rain snow thunder sunny fog freezing hot night early morning
+#   lunch afternoon evening late monday_morning friday_afternoon weekend
+#   winter spring summer autumn always
+# Placeholders: {time} {user} {battery} {temp} {uptime} {disk} {changes}
+#
+# Copy this file to ~/.config/nekofetch/says.toml to make it yours. Keep lines
+# at 34 characters or less so the row stays narrow; `nekofetch says --check`
+# lists the ones that are too long and any unknown condition names.
+
+[dates]
+"01-01" = ["happy new year! same dotfiles"]
+"02-14" = ["♡ i love you more than tuna"]
+"04-01" = ["april fools! rm -rf / ...jk"]
+"10-31" = ["happy halloween! 🎃 boo"]
+"12-24" = ["merry xmas eve! 🎄 i'm in the box"]
+"12-25" = ["merry christmas! 🎄 presents?"]
+"12-31" = ["last day of the year, commit!"]
+
+# --- machine ---
+
+[when.battery_critical]
+priority = true
+lines = ["{battery}%!! plug me in or we nap", "{battery}% left. charger. now."]
+
+[when.battery_low]
+lines = ["{battery}% battery, find a charger?", "battery at {battery}%, i'm worried"]
+
+[when.disk_full]
+lines = ["disk {disk}% full, clean up?", "{disk}% disk... brew cleanup?"]
+
+[when.long_uptime]
+lines = ["up {uptime} days, reboot me?", "{uptime} days awake, i need a nap"]
+
+[when.git_dirty]
+lines = ["uncommitted changes here: {changes}", "psst, you have stuff to commit"]
+
+[when.first_shell]
+lines = ["first shell today, hi {user}!", "welcome back, {user}"]
+
+# --- weather (the cached wttr.in line, in English) ---
+
+[when.rain]
+lines = ["rain! perfect coding weather", "rain outside, stay in with me"]
+
+[when.snow]
+lines = ["snow! ❄️ can we go look?", "it's snowing, keep your paws warm"]
+
+[when.thunder]
+lines = ["thunder... hiding under the desk"]
+
+[when.sunny]
+lines = ["sunny out, go touch some grass", "sun's out, i call the window spot"]
+
+[when.fog]
+lines = ["foggy, like my brain pre-coffee"]
+
+[when.freezing]
+lines = ["{temp}! i'm staying on the laptop"]
+
+[when.hot]
+lines = ["{temp}... too hot for fur"]
+
+# --- time ---
+
+[when.night]
+lines = ["past midnight... bed or commit?", "it's {time}. even cats sleep"]
+
+[when.early]
+lines = ["morning! coffee, then git pull", "early start? i'm still in bed"]
+
+[when.morning]
+lines = ["morning! what are we building?"]
+
+[when.lunch]
+lines = ["lunch time? i'll take the tuna"]
+
+[when.afternoon]
+lines = ["afternoon slump? stretch like me"]
+
+[when.evening]
+lines = ["evening! ship it or sleep on it?"]
+
+[when.late]
+lines = ["late. bugs will wait till morning"]
+
+[when.monday_morning]
+lines = ["monday... i'm under the blanket"]
+
+[when.friday_afternoon]
+lines = ["friday afternoon, no deploys!"]
+
+[when.weekend]
+lines = ["weekend coding? i won't tell", "it's the weekend, pet me instead"]
+
+# --- seasons ---
+
+[when.winter]
+lines = ["winter: curled up on the laptop"]
+
+[when.spring]
+lines = ["spring! the birds are taunting me"]
+
+[when.summer]
+lines = ["summer, the floor is the cool spot"]
+
+[when.autumn]
+lines = ["autumn leaves, prime pouncing time"]
+
+# --- any time ---
+
+[when.always]
+lines = ["meow", "nya~", "i sat on your keyboard, sorry", "tried turning it off and on again?"]

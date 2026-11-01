@@ -1,0 +1,40 @@
+# nekofetch settings. Delete a line to get its default back.
+
+[image]
+# random, or sorted (one after another, by file name)
+order = "random"
+# auto picks the best one for your terminal:
+#   kitty         kitty, Ghostty (animated with `kitten`)
+#   kitty-direct  PNG via the kitty protocol, no `kitten` needed
+#   iterm         iTerm2, WezTerm
+#   sixel         foot, Windows Terminal, ... (needs chafa)
+#   blocks        pixel-exact block art of the bundled cats, any truecolor terminal
+#   chafa         colored blocks for any image (needs chafa)
+#   ascii         the braille cat, text only
+#   none          no logo
+protocol = "auto"
+# size in terminal cells, for the image protocols (kitty, iterm, sixel, chafa);
+# block art and the braille cat have fixed sizes
+width = 30
+height = 16
+# where your own images live (default: ~/.config/nekofetch/images)
+folder = ""
+# the bundled cats: "fallback" = only while you have none of your own,
+# "always" = mixed in with yours, "never" = just yours
+defaults = "fallback"
+
+[weather]
+enabled = true
+# empty: wttr.in guesses from your IP. Or a city ("Vienna"), an airport ("VIE"),
+# a landmark ("~Eiffel Tower") or a zip code.
+location = ""
+# metric or imperial
+units = "metric"
+# minutes before the cached weather is fetched again (in the background)
+refresh = 30
+
+[says]
+# the cat's comment at the bottom; edit the lines in says.toml
+enabled = true
+# uwu mode: true, false, or "april" (only on April 1st)
+uwu = "april"
